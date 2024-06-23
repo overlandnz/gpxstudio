@@ -2,6 +2,8 @@ import Total from './total.js';
 import Slider from './slider.js';
 import Google from './google.js';
 
+import NavigatorDataSource from './datasources/navigator.js';
+
 export default class Buttons {
     constructor() {
         // SETTINGS
@@ -58,6 +60,7 @@ export default class Buttons {
         // BUTTONS
         this.input = document.getElementById("input-file");
         this.load = document.getElementById("load");
+        this.loadNavigator = document.getElementById("navigatorLoad");
         this.load2 = document.getElementById("load2");
         this.load_drive = document.getElementById("load-drive");
         this.load_error_ok = document.getElementById("load-error-ok");
@@ -70,8 +73,6 @@ export default class Buttons {
         this.help = document.getElementById("help");
         this.about = document.getElementById("about");
         this.account = document.getElementById("account");
-        this.donate = document.getElementById("donate");
-        this.donate2 = document.getElementById("donate-2");
         this.delete = document.getElementById("delete");
         this.delete2 = document.getElementById("delete2");
         this.zone_delete = document.getElementById("zone-delete");
@@ -993,11 +994,9 @@ export default class Buttons {
         this.load_error_ok.addEventListener("click", function () {
             buttons.load_error_window.hide();
         });
-        this.donate.addEventListener("click", function () {
-            buttons.donation();
-        });
-        this.donate2.addEventListener("click", function () {
-            buttons.donation();
+        this.loadNavigator.addEventListener("click", function () {
+            this.navigatorSource = new NavigatorDataSource();
+            this.navigatorSource.start();
         });
         this.toolbar_content.addEventListener("click", function () {
             if (window.getComputedStyle(buttons.load).display == 'none') {
@@ -1836,14 +1835,6 @@ export default class Buttons {
             });
 
             buttons.controlLayers._layer_selection_button.click();
-        });
-        this.about.addEventListener("click", function () {
-            window.open('./about.html');
-        });
-        this.help.addEventListener("click", function () {
-            if (buttons.window_open) buttons.window_open.hide();
-            buttons.window_open = buttons.help_window;
-            buttons.help_window.show();
         });
         this.duplicate.addEventListener("click", function () {
             if (total.hasFocus) return;
